@@ -1,4 +1,4 @@
-package com.example.MyMDB.domain;
+package com.example.MyMDB.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;

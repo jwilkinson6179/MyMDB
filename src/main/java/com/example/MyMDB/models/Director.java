@@ -1,20 +1,22 @@
-package com.example.MyMDB.domain;
+package com.example.MyMDB.models;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
-@Entity
-public class Actor
+public class Director
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    String firstName;
-    String lastName;
-    @ManyToMany(mappedBy = "cast")
-    Set<Movie> filmography;
-
-    public Actor()
+    private Long id;
+    private String firstName;
+    private String lastName;
+    @OneToMany
+    private Set<Movie> filmography;
+    
+    public Director()
     {
     }
 
