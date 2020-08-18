@@ -16,19 +16,18 @@ public class Movie
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
-    @Column(name = "cast_and_crew")
-    private Set<Credit> castAndCrew;
-    @Column(name = "plot_synopsis")
-    private String plotSynopsis;
-    @ManyToMany
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
+//    @Column(name = "cast_and_crew")
+//    private Set<Credit> castAndCrew;
+//    @Column(name = "plot_synopsis")
+//    private String plotSynopsis;
+    @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Genre> genres;
-    @ManyToMany
-    private Set<Language> languages;
-    @Column(name = "country_of_origin")
-    private String countryOfOrigin;
-    private Integer runtime;
-
+//    @ManyToMany
+//    private Set<Language> languages;
+//    @Column(name = "country_of_origin")
+//    private String countryOfOrigin;
+//    private Integer runtime;
 
     public Movie() { }
 
@@ -62,23 +61,33 @@ public class Movie
         this.releaseDate = releaseDate;
     }
 
-    public String getPlotSynopsis()
+    public Set<Genre> getGenres()
     {
-        return plotSynopsis;
+        return genres;
     }
 
-    public void setPlotSynopsis(String plotSynopsis)
+    public void setGenres(Set<Genre> genres)
     {
-        this.plotSynopsis = plotSynopsis;
+        this.genres = genres;
     }
 
-    public Integer getRuntime()
-    {
-        return runtime;
-    }
-
-    public void setRuntime(Integer runtime)
-    {
-        this.runtime = runtime;
-    }
+    //    public String getPlotSynopsis()
+//    {
+//        return plotSynopsis;
+//    }
+//
+//    public void setPlotSynopsis(String plotSynopsis)
+//    {
+//        this.plotSynopsis = plotSynopsis;
+//    }
+//
+//    public Integer getRuntime()
+//    {
+//        return runtime;
+//    }
+//
+//    public void setRuntime(Integer runtime)
+//    {
+//        this.runtime = runtime;
+//    }
 }
