@@ -1,13 +1,11 @@
 package com.example.MyMDB.services;
 
-import com.example.MyMDB.models.Genre;
+import com.example.MyMDB.models.GenreTag;
 import com.example.MyMDB.models.Movie;
-import com.example.MyMDB.repositories.GenreRepository;
 import com.example.MyMDB.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,28 +13,17 @@ import java.util.Set;
 public class MovieService
 {
     private final MovieRepository movieRepository;
-    private final GenreService genreService;
+    private final GenreTagService genreTagService;
 
     @Autowired
-    public MovieService(MovieRepository movieRepository, GenreService genreService)
+    public MovieService(MovieRepository movieRepository, GenreTagService genreTagService)
     {
         this.movieRepository = movieRepository;
-        this.genreService = genreService;
+        this.genreTagService = genreTagService;
     }
 
     public Movie save(Movie movie)
     {
-        for(Genre el : movie.getGenres())
-        {
-            Set<Movie> movieSet = el.getMovies();
-
-            if(movieSet == null)
-            {
-                movieSet = new HashSet<>();
-            }
-            movieSet.add(movie);
-            genreService.save(el);
-        }
         return movieRepository.save(movie);
     }
 
@@ -48,5 +35,24 @@ public class MovieService
     public Optional<Movie> findByid(Long id)
     {
         return movieRepository.findById(id);
+    }
+
+    public Movie addGenreTag(Long id, String genreName) throws Exception
+    {
+        GenreTag genre = genreTagService.findByGenreName(genreName)
+                .orElseThrow(Exception::new);
+        Movie movie = findByid(id)
+                .orElseThrow(Exception::new);
+
+        Set<Movie> genreMovieSet = genre.getMovies();
+        genreMovieSet.add(movie);
+        genre.setMovies(genreMovieSet);
+        genreTagService.save(genre);
+
+        Set<GenreTag> movieGenreSet = movie.getGenres();
+        movieGenreSet.add(genre);
+        movie.setGenres(movieGenreSet);
+
+        return movieRepository.save(movie);
     }
 }

@@ -1,6 +1,10 @@
 package com.example.MyMDB.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -13,6 +17,7 @@ public class Movie
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "movie_id")
     private Long id;
+    @NotBlank
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;
@@ -22,7 +27,8 @@ public class Movie
 //    @Column(name = "plot_synopsis")
 //    private String plotSynopsis;
     @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Genre> genres;
+    @NotNull
+    private Set<GenreTag> genreTags;
 //    @ManyToMany
 //    private Set<Language> languages;
 //    @Column(name = "country_of_origin")
@@ -61,14 +67,14 @@ public class Movie
         this.releaseDate = releaseDate;
     }
 
-    public Set<Genre> getGenres()
+    public Set<GenreTag> getGenres()
     {
-        return genres;
+        return genreTags;
     }
 
-    public void setGenres(Set<Genre> genres)
+    public void setGenres(Set<GenreTag> genreTags)
     {
-        this.genres = genres;
+        this.genreTags = genreTags;
     }
 
     //    public String getPlotSynopsis()

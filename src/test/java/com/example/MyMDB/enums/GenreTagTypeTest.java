@@ -4,7 +4,7 @@ package com.example.MyMDB.enums;
 import org.junit.Test;
 import org.junit.Assert;
 
-public class GenreTypeTest
+public class GenreTagTypeTest
 {
     @Test
     public void GenreReturnsName()

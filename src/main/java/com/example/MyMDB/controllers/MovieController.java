@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
-@RequestMapping("api/movie/")
+@RequestMapping("api/movie")
 public class MovieController
 {
     private final MovieService movieService;
@@ -25,9 +27,15 @@ public class MovieController
         return new ResponseEntity<>(movieService.save(movie), HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Iterable<Movie>> list()
     {
         return new ResponseEntity<>(movieService.findAll(), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Movie> addGenreTag(@PathVariable Long id, @RequestParam(name = "genre") String genreTag) throws Exception
+    {
+        return new ResponseEntity<>(movieService.addGenreTag(id, genreTag), HttpStatus.OK);
     }
 }
