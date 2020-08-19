@@ -32,17 +32,17 @@ public class MovieService
         return movieRepository.findAll();
     }
 
-    public Optional<Movie> findByid(Long id)
+    public Movie findByid(Long id) throws Exception
     {
-        return movieRepository.findById(id);
+        return movieRepository.findById(id)
+                .orElseThrow(Exception::new);
     }
 
     public Movie addGenreTag(Long id, String genreName) throws Exception
     {
         GenreTag genre = genreTagService.findByGenreName(genreName)
                 .orElseThrow(Exception::new);
-        Movie movie = findByid(id)
-                .orElseThrow(Exception::new);
+        Movie movie = findByid(id);
 
         Set<Movie> genreMovieSet = genre.getMovies();
         genreMovieSet.add(movie);

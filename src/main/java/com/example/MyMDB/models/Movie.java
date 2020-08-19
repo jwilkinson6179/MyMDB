@@ -28,6 +28,7 @@ public class Movie
 //    private String plotSynopsis;
     @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull
+    @JsonIgnoreProperties("movies")
     private Set<GenreTag> genreTags;
 //    @ManyToMany
 //    private Set<Language> languages;

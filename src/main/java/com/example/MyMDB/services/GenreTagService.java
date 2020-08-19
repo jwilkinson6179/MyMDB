@@ -26,7 +26,6 @@ public class GenreTagService
 
     public Optional<GenreTag> findByGenreName(String name)
     {
-        GenreType genre = GenreType.valueOf(name);
-        return genreTagRepository.findByGenreName(genre);
+        return genreTagRepository.findByGenreName(GenreType.valueOf(name.toUpperCase()));
     }
 }
