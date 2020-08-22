@@ -6,6 +6,7 @@ import com.example.MyMDB.repositories.GenreTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -24,8 +25,13 @@ public class GenreTagService
         return genreTagRepository.save(genreTag);
     }
 
+    public Iterable<GenreTag> findAll()
+    {
+        return genreTagRepository.findAll();
+    }
+
     public Optional<GenreTag> findByGenreName(String name)
     {
-        return genreTagRepository.findByGenreName(GenreType.valueOf(name.toUpperCase()));
+        return genreTagRepository.findByGenreName(GenreType.valueOf(name.toUpperCase(Locale.ENGLISH)));
     }
 }

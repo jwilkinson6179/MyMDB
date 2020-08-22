@@ -21,7 +21,7 @@ public class GenreTag
             name = "genre_of_movie",
             joinColumns = { @JoinColumn(name = "genre_tag_id")},
             inverseJoinColumns = { @JoinColumn(name = "movie_id")})
-    @JsonIgnoreProperties("movies")
+    @JsonIgnoreProperties("genres")
     private Set<Movie> movies;
 
     public GenreTag() { }

@@ -21,20 +21,20 @@ public class Movie
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
-//    @Column(name = "cast_and_crew")
-//    private Set<Credit> castAndCrew;
-//    @Column(name = "plot_synopsis")
-//    private String plotSynopsis;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
+    @Column(name = "cast_and_crew")
+    private Set<Credit> credits;
+    @Column(name = "plot_synopsis")
+    private String plotSynopsis;
     @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull
-    @JsonIgnoreProperties("movies")
-    private Set<GenreTag> genreTags;
+    @JsonIgnoreProperties("filmography")
+    private Set<GenreTag> genres;
 //    @ManyToMany
 //    private Set<Language> languages;
 //    @Column(name = "country_of_origin")
 //    private String countryOfOrigin;
-//    private Integer runtime;
+    private Integer runtime;
 
     public Movie() { }
 
@@ -68,33 +68,43 @@ public class Movie
         this.releaseDate = releaseDate;
     }
 
+    public Set<Credit> getCredits()
+    {
+        return credits;
+    }
+
+    public void setCredits(Set<Credit> credits)
+    {
+        this.credits = credits;
+    }
+
+    public String getPlotSynopsis()
+    {
+        return plotSynopsis;
+    }
+
+    public void setPlotSynopsis(String plotSynopsis)
+    {
+        this.plotSynopsis = plotSynopsis;
+    }
+
     public Set<GenreTag> getGenres()
     {
-        return genreTags;
+        return genres;
     }
 
-    public void setGenres(Set<GenreTag> genreTags)
+    public void setGenres(Set<GenreTag> genres)
     {
-        this.genreTags = genreTags;
+        this.genres = genres;
     }
 
-    //    public String getPlotSynopsis()
-//    {
-//        return plotSynopsis;
-//    }
-//
-//    public void setPlotSynopsis(String plotSynopsis)
-//    {
-//        this.plotSynopsis = plotSynopsis;
-//    }
-//
-//    public Integer getRuntime()
-//    {
-//        return runtime;
-//    }
-//
-//    public void setRuntime(Integer runtime)
-//    {
-//        this.runtime = runtime;
-//    }
+    public Integer getRuntime()
+    {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime)
+    {
+        this.runtime = runtime;
+    }
 }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "person",
         uniqueConstraints =
-        @UniqueConstraint(columnNames = { "name", "birthdate" }))
+        @UniqueConstraint(columnNames = { "first_name", "last_name", "birthdate" }))
 public class Person
 {
     @Id
@@ -20,12 +20,15 @@ public class Person
     @Column(name = "person_id")
     private Long id;
     @NotBlank
-    @Size(min = 3, max = 64, message = "Valid names must be between 3 and 64 characters in length")
-    private String name;
+    @Size(min = 2, max = 32, message = "Valid names must be between 3 and 64 characters in length")
+    private String firstName;
+    @NotBlank
+    @Size(min = 2, max = 32, message = "Valid names must be between 3 and 64 characters in length")
+    private String lastName;
     @NotNull
     private LocalDate birthdate;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "person", orphanRemoval = true)
-    @JsonIgnoreProperties("credit")
+    @JsonIgnoreProperties("credits")
     private Set<Credit> filmography;
     private String nationality;
 
@@ -41,14 +44,24 @@ public class Person
         this.id = id;
     }
 
-    public String getName()
+    public String getFirstName()
     {
-        return name;
+        return firstName;
     }
 
-    public void setName(String name)
+    public void setFirstName(String firstName)
     {
-        this.name = name;
+        this.firstName = firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
     }
 
     public LocalDate getBirthdate()
@@ -69,5 +82,15 @@ public class Person
     public void setFilmography(Set<Credit> filmography)
     {
         this.filmography = filmography;
+    }
+
+    public String getNationality()
+    {
+        return nationality;
+    }
+
+    public void setNationality(String nationality)
+    {
+        this.nationality = nationality;
     }
 }
