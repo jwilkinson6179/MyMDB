@@ -1,9 +1,7 @@
 package com.example.MyMDB.enums;
 
-import com.neovisionaries.i18n.CountryCode;
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +11,7 @@ public class GenreTypeTests
     @Test
     public void testOfTest()
     {
-        Assert.assertEquals(0, 0);
+        Assertions.assertEquals(0, 0);
     }
 
     @Test
@@ -22,7 +20,7 @@ public class GenreTypeTests
         String expected = "HORROR";
         String actual = GenreType.HORROR.toString();
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -36,6 +34,6 @@ public class GenreTypeTests
                 .map(s -> s.toString())
                 .collect(Collectors.joining(",", "[", "]"));
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 }

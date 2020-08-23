@@ -1,9 +1,8 @@
 package com.example.MyMDB.models;
 
 import com.example.MyMDB.enums.GenreType;
-import org.junit.Assert;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,11 +33,11 @@ public class MovieTests
         testMovie.setGenres(new HashSet<>(Arrays.asList(gTag)));
         testMovie.setRuntime(75);
 
-        Assert.assertEquals(expectedId, testMovie.getId());
-        Assert.assertEquals(expectedTitle, testMovie.getTitle());
-        Assert.assertEquals(expectedReleaseDate, testMovie.getReleaseDate());
-        Assert.assertEquals(expectedPlot, testMovie.getPlotSynopsis());
-        Assert.assertEquals(expectedGenres, testMovie.getGenres());
-        Assert.assertEquals(expectedRuntime, testMovie.getRuntime());
+        Assertions.assertEquals(expectedId, testMovie.getId());
+        Assertions.assertEquals(expectedTitle, testMovie.getTitle());
+        Assertions.assertEquals(expectedReleaseDate, testMovie.getReleaseDate());
+        Assertions.assertEquals(expectedPlot, testMovie.getPlotSynopsis());
+        Assertions.assertEquals(expectedGenres, testMovie.getGenres());
+        Assertions.assertEquals(expectedRuntime, testMovie.getRuntime());
     }
 }
