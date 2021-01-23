@@ -1,27 +1,31 @@
 package com.example.MyMDB.models;
 
 import com.example.MyMDB.enums.GenreType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-public class Genre
+@Table(name = "genre_tag")
+public class GenreTag
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "genre_id")
+    @Column(name = "genre_tag_id")
     private Long id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "genre", unique = true)
     private GenreType genre;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "genre_of_movie",
-            joinColumns = { @JoinColumn(name = "genre_id")},
+            joinColumns = { @JoinColumn(name = "genre_tag_id")},
             inverseJoinColumns = { @JoinColumn(name = "movie_id")})
+    @JsonIgnoreProperties("genres")
     private Set<Movie> movies;
 
-    public Genre() { }
+    public GenreTag() { }
 
     public Long getId()
     {

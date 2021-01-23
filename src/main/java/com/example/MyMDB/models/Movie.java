@@ -1,6 +1,11 @@
 package com.example.MyMDB.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.neovisionaries.i18n.CountryCode;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -13,21 +18,26 @@ public class Movie
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "movie_id")
     private Long id;
+    @NotBlank
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
-//    @Column(name = "cast_and_crew")
-//    private Set<Credit> castAndCrew;
-//    @Column(name = "plot_synopsis")
-//    private String plotSynopsis;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie", orphanRemoval = true)
+    @Column(name = "cast_and_crew")
+    private Set<Credit> credits;
+    @Column(name = "plot_synopsis")
+    private String plotSynopsis;
     @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Genre> genres;
-//    @ManyToMany
-//    private Set<Language> languages;
-//    @Column(name = "country_of_origin")
-//    private String countryOfOrigin;
-//    private Integer runtime;
+    @NotNull
+    @JsonIgnoreProperties("movies")
+    private Set<GenreTag> genres;
+    @ManyToMany
+    @JsonIgnoreProperties("movies")
+    private Set<Language> languages;
+    @Column(name = "country_of_origin")
+    @Enumerated(EnumType.STRING)
+    private CountryCode countryOfOrigin;
+    private Integer runtime;
 
     public Movie() { }
 
@@ -61,33 +71,63 @@ public class Movie
         this.releaseDate = releaseDate;
     }
 
-    public Set<Genre> getGenres()
+    public Set<Credit> getCredits()
+    {
+        return credits;
+    }
+
+    public void setCredits(Set<Credit> credits)
+    {
+        this.credits = credits;
+    }
+
+    public String getPlotSynopsis()
+    {
+        return plotSynopsis;
+    }
+
+    public void setPlotSynopsis(String plotSynopsis)
+    {
+        this.plotSynopsis = plotSynopsis;
+    }
+
+    public Set<GenreTag> getGenres()
     {
         return genres;
     }
 
-    public void setGenres(Set<Genre> genres)
+    public void setGenres(Set<GenreTag> genres)
     {
         this.genres = genres;
     }
 
-    //    public String getPlotSynopsis()
-//    {
-//        return plotSynopsis;
-//    }
-//
-//    public void setPlotSynopsis(String plotSynopsis)
-//    {
-//        this.plotSynopsis = plotSynopsis;
-//    }
-//
-//    public Integer getRuntime()
-//    {
-//        return runtime;
-//    }
-//
-//    public void setRuntime(Integer runtime)
-//    {
-//        this.runtime = runtime;
-//    }
+    public Integer getRuntime()
+    {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime)
+    {
+        this.runtime = runtime;
+    }
+
+    public Set<Language> getLanguages()
+    {
+        return languages;
+    }
+
+    public void setLanguages(Set<Language> languages)
+    {
+        this.languages = languages;
+    }
+
+    public CountryCode getCountryOfOrigin()
+    {
+        return countryOfOrigin;
+    }
+
+    public void setCountryOfOrigin(CountryCode countryOfOrigin)
+    {
+        this.countryOfOrigin = countryOfOrigin;
+    }
 }

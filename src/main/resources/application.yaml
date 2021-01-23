@@ -1,0 +1,27 @@
+# Uses DbInitializer to populate enum tables for genres and ISO language
+app:
+  db-init: true
+spring:
+  banner:
+    location: banner.txt
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: ${HIBERNATE_DLL:none}
+  datasource:
+    platform: postgres
+    name: mymdb
+    initialization-mode: always
+    url: ${DATABASE_URL}:${DATABASE_PORT:5432}/mymdb?user=${SPRING_DATASOURCE_USERNAME}&password=${SPRING_DATASOURCE_PASSWORD}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    maxActive: 10
+    maxIdle: 5
+    minIdleL: 2
+    initial-size: 5
+    remove-abandoned: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
