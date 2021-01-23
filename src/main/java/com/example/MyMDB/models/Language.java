@@ -1,16 +1,28 @@
 package com.example.MyMDB.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.neovisionaries.i18n.LanguageCode;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "language")
 public class Language
 {
     @Id
+    @Column(name = "language_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String language;
-    @ManyToMany
+    @Column(name = "language_code", unique = true)
+    @Enumerated(EnumType.STRING)
+    private LanguageCode languageCode;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "spoken_language",
+            joinColumns = { @JoinColumn(name = "language_id") },
+            inverseJoinColumns = { @JoinColumn(name = "movie_id")})
+    @JsonIgnoreProperties("languages")
     private Set<Movie> movies;
 
     public Language() { }
@@ -25,14 +37,14 @@ public class Language
         this.id = id;
     }
 
-    public String getLanguage()
+    public LanguageCode getLanguage()
     {
-        return language;
+        return languageCode;
     }
 
-    public void setLanguage(String language)
+    public void setLanguage(LanguageCode languageCode)
     {
-        this.language = language;
+        this.languageCode = languageCode;
     }
 
     public Set<Movie> getMovies()

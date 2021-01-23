@@ -15,8 +15,9 @@ public class GenreTag
     @Column(name = "genre_tag_id")
     private Long id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "genre", unique = true)
     private GenreType genre;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "genre_of_movie",
             joinColumns = { @JoinColumn(name = "genre_tag_id")},

@@ -21,12 +21,6 @@ public class GenreTagController
         this.genreTagService = genreTagService;
     }
 
-    @PostMapping
-    public ResponseEntity<GenreTag> save(@Valid @RequestBody GenreTag genreTag)
-    {
-        return new ResponseEntity<>(genreTagService.save(genreTag), HttpStatus.CREATED);
-    }
-
     @GetMapping
     public ResponseEntity<Iterable<GenreTag>> findAll()
     {

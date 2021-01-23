@@ -1,6 +1,7 @@
 package com.example.MyMDB.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.neovisionaries.i18n.CountryCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,12 +29,14 @@ public class Movie
     private String plotSynopsis;
     @ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @NotNull
-    @JsonIgnoreProperties("filmography")
+    @JsonIgnoreProperties("movies")
     private Set<GenreTag> genres;
-//    @ManyToMany
-//    private Set<Language> languages;
-//    @Column(name = "country_of_origin")
-//    private String countryOfOrigin;
+    @ManyToMany
+    @JsonIgnoreProperties("movies")
+    private Set<Language> languages;
+    @Column(name = "country_of_origin")
+    @Enumerated(EnumType.STRING)
+    private CountryCode countryOfOrigin;
     private Integer runtime;
 
     public Movie() { }
@@ -106,5 +109,25 @@ public class Movie
     public void setRuntime(Integer runtime)
     {
         this.runtime = runtime;
+    }
+
+    public Set<Language> getLanguages()
+    {
+        return languages;
+    }
+
+    public void setLanguages(Set<Language> languages)
+    {
+        this.languages = languages;
+    }
+
+    public CountryCode getCountryOfOrigin()
+    {
+        return countryOfOrigin;
+    }
+
+    public void setCountryOfOrigin(CountryCode countryOfOrigin)
+    {
+        this.countryOfOrigin = countryOfOrigin;
     }
 }

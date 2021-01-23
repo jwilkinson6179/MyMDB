@@ -40,9 +40,15 @@ public class MovieController
         return new ResponseEntity<>(movieService.findByid(id), HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/genre")
     public ResponseEntity<Movie> addGenreTag(@PathVariable Long id, @RequestParam(name = "genre") String genreTag) throws Exception
     {
         return new ResponseEntity<>(movieService.addGenreTag(id, genreTag), HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/language")
+    public ResponseEntity<Movie> addLanguage(@PathVariable Long id, @RequestParam(name = "lang") String languageCode) throws Exception
+    {
+        return new ResponseEntity<>(movieService.addLanguage(id, languageCode), HttpStatus.OK);
     }
 }
